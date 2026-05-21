@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我嘅 FD Poby</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --orange: #ff6b2c;
+      --blue: #4ec8e8;
+      --red: #e63946;
+      --cream: #fff8f0;
+      --ink: #1a1a2e;
+      --shadow: 0 8px 32px rgba(26, 26, 46, 0.12);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Noto Sans HK", "PingFang HK", "Microsoft JhengHei", sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 2rem;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(255, 107, 44, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(78, 200, 232, 0.2) 0%, transparent 50%),
+        var(--cream);
+      position: relative;
+    }
+
+    .hero::before {
+      content: "POBY";
+      position: absolute;
+      font-size: clamp(8rem, 25vw, 18rem);
+      font-weight: 900;
+      color: rgba(26, 26, 46, 0.04);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      letter-spacing: -0.05em;
+    }
+
+    .hero-inner {
+      max-width: 1100px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--orange);
+      color: white;
+      padding: 0.4rem 1.2rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 1.5rem;
+      animation: bounce 2s ease infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 8vw, 4.5rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    h1 span {
+      background: linear-gradient(135deg, var(--orange), var(--red));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 1.25rem;
+      color: #555;
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .hero-img-wrap {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 2rem;
+    }
+
+    .hero-img-wrap img {
+      width: min(320px, 85vw);
+      height: min(320px, 85vw);
+      object-fit: cover;
+      border-radius: 50%;
+      border: 6px solid white;
+      box-shadow: var(--shadow), 0 0 0 4px var(--orange);
+    }
+
+    .hero-img-wrap::after {
+      content: "🤨";
+      position: absolute;
+      bottom: 10px;
+      right: -10px;
+      font-size: 2.5rem;
+      background: white;
+      border-radius: 50%;
+      width: 56px;
+      height: 56px;
+      display: grid;
+      place-items: center;
+      box-shadow: var(--shadow);
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--ink);
+      background: white;
+      padding: 0.65rem 1.4rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    nav a:hover {
+      transform: translateY(-2px);
+      background: var(--orange);
+      color: white;
+    }
+
+    /* Sections */
+    section {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 5rem 1.5rem;
+    }
+
+    .section-label {
+      display: inline-block;
+      background: var(--blue);
+      color: var(--ink);
+      padding: 0.3rem 0.9rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      font-weight: 900;
+      margin-bottom: 1.5rem;
+    }
+
+    /* About */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    @media (max-width: 700px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .about-text p {
+      margin-bottom: 1rem;
+      font-size: 1.05rem;
+    }
+
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .stat {
+      background: white;
+      padding: 1rem 1.25rem;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      flex: 1;
+      min-width: 120px;
+      text-align: center;
+    }
+
+    .stat-num {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--orange);
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: #666;
+    }
+
+    /* Gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 600px) {
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .gallery-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s;
+    }
+
+    .gallery-card:hover {
+      transform: scale(1.02);
+    }
+
+    .gallery-card img {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gallery-card figcaption {
+      padding: 1.25rem;
+    }
+
+    .gallery-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .gallery-card p {
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    /* Quotes */
+    .quotes {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .quote {
+      background: white;
+      padding: 1.5rem 1.75rem;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      border-left: 5px solid var(--orange);
+      font-size: 1.1rem;
+      position: relative;
+    }
+
+    .quote::before {
+      content: "「";
+      font-size: 3rem;
+      color: var(--orange);
+      opacity: 0.3;
+      position: absolute;
+      top: -0.2rem;
+      left: 0.8rem;
+      line-height: 1;
+    }
+
+    .quote cite {
+      display: block;
+      margin-top: 0.6rem;
+      font-size: 0.85rem;
+      color: #888;
+      font-style: normal;
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(var(--orange), var(--blue));
+      border-radius: 3px;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2rem;
+      padding-left: 1.5rem;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -1.65rem;
+      top: 0.4rem;
+      width: 14px;
+      height: 14px;
+      background: var(--orange);
+      border-radius: 50%;
+      border: 3px solid var(--cream);
+      box-shadow: 0 0 0 2px var(--orange);
+    }
+
+    .timeline-item h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .timeline-item p {
+      color: #555;
+      font-size: 0.95rem;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      background: var(--ink);
+      color: white;
+    }
+
+    footer p {
+      opacity: 0.8;
+      font-size: 0.9rem;
+    }
+
+    footer .heart {
+      color: var(--orange);
+    }
+
+    .coca-strip {
+      background: linear-gradient(90deg, #e63946, #ff6b2c, #4ec8e8);
+      height: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <span class="badge">我嘅 FD · 傳奇人物</span>
+      <div class="hero-img-wrap">
+        <img src="assets/poby-skeptical.png" alt="Poby 經典懷疑表情">
+      </div>
+      <h1>歡迎嚟到<br><span>Poby</span> 嘅世界</h1>
+      <p class="hero-sub">佢係我最好嘅朋友。有時懷疑人生，有時企喺汽水機前面——但永遠係我哋班入面最醒嘅一個。</p>
+      <nav>
+        <a href="#about">關於佢</a>
+        <a href="#gallery">相簿</a>
+        <a href="#quotes">語錄</a>
+        <a href="#timeline">大事記</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="coca-strip"></div>
+
+  <section id="about">
+    <span class="section-label">關於 Poby</span>
+    <h2>邊個係 Poby？</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>Poby 係我認識過最特別嘅朋友。佢有兩種模式：一種係「你講乜我都唔信」嘅經典懷疑臉；另一種係企喺香港街頭汽水機旁邊，橙色衫、耳機、隨時準備買罐可樂嘅 chill 模式。</p>
+        <p>無論你同佢講「聽日一定交功課」定係「呢個優惠真係勁抵」，佢都會用嗰對眉同眼神話你知：「係咪呀？」</p>
+        <p>但講真，有 Poby 喺度，成班人都安心啲——因為至少有人會幫你諗清楚先。</p>
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-num">∞</div>
+            <div class="stat-label">懷疑次數</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">100%</div>
+            <div class="stat-label">真朋友指數</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">2</div>
+            <div class="stat-label">經典造型</div>
+          </div>
+        </div>
+      </div>
+      <figure class="gallery-card">
+        <img src="assets/poby-vending.png" alt="Poby 企喺汽水機前面">
+        <figcaption>
+          <h3>汽水機模式</h3>
+          <p>橙色衫、耳機、BoC Pay 積分當錢使——香港街頭 vibe 滿分。</p>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="gallery">
+    <span class="section-label">相簿</span>
+    <h2>Poby 嘅兩個平行宇宙</h2>
+    <div class="gallery">
+      <figure class="gallery-card">
+        <img src="assets/poby-skeptical.png" alt="Poby 懷疑人生">
+        <figcaption>
+          <h3>🤨 懷疑人生模式</h3>
+          <p>當有人話「今次真係最後一次」或者「我哋一定準時到」——就會自動觸發呢個表情。經典、無可取代。</p>
+        </figcaption>
+      </figure>
+      <figure class="gallery-card">
+        <img src="assets/poby-vending.png" alt="Poby 汽水機打卡">
+        <figcaption>
+          <h3>🥤 汽水機打卡模式</h3>
+          <p>企喺可樂機前面，手交叉，眼神望向遠方。可能諗緊飲 Fanta 定 Nescafé，可能諗緊人生。</p>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="quotes">
+    <span class="section-label">語錄</span>
+    <h2>Poby 可能會講嘅嘢</h2>
+    <div class="quotes">
+      <blockquote class="quote">
+        你話聽日交？我聽過十次喇。
+        <cite>— Poby，懷疑人生模式</cite>
+      </blockquote>
+      <blockquote class="quote">
+        密密掃密密扣，但係你請唔請我飲罐嘢先？
+        <cite>— Poby，汽水機模式</cite>
+      </blockquote>
+      <blockquote class="quote">
+        我唔係唔信你，我係太了解你。
+        <cite>— Poby，萬用金句</cite>
+      </blockquote>
+      <blockquote class="quote">
+        FD 就係：你癲我陪你癲，但你講大話我會望住你。
+        <cite>— Poby，友誼宣言</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <section id="timeline">
+    <span class="section-label">大事記</span>
+    <h2>Poby 傳奇時間線</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <h3>🌟 出世（傳說開始）</h3>
+        <p>一個注定要用眉毛改變世界嘅人誕生咗。</p>
+      </div>
+      <div class="timeline-item">
+        <h3>🤨 懷疑人生模式上線</h3>
+        <p>第一次用「係咪呀」嘅眼神望住人——從此成為經典 meme 級表情。</p>
+      </div>
+      <div class="timeline-item">
+        <h3>🥤 汽水機打卡</h3>
+        <p>喺香港街頭同可樂機合影，橙色衫同 BoC Pay 廣告完美襯托，城市 chill 代表。</p>
+      </div>
+      <div class="timeline-item">
+        <h3>💛 成為我嘅 FD</h3>
+        <p>唔使多講——最好嘅朋友，就係咁簡單。</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>用 <span class="heart">❤</span> 整俾我最好嘅朋友 Poby</p>
+    <p style="margin-top: 0.5rem; opacity: 0.5;">© 2026 · 我嘅 FD Poby · 廣東話版</p>
+  </footer>
+
+</body>
+</html>
